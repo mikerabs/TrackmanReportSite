@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head><title>Pitcher Report</title></head>
+<body>
+  <h2>Upload Pitcher CSV</h2>
+  <form action="/" method="post" enctype="multipart/form-data">
+    <label>Pitcher Name (Last, First):</label><br>
+    <input type="text" name="pitcher_name" required><br><br>
+    <label>Innings Pitched:</label><br>
+    <input type="text" name="innings_pitched" required><br><br>
+    <label>Upload CSV:</label><br>
+    <input type="file" name="csv_file" required><br><br>
+    <input type="submit" value="Generate Report">
+  </form>
+</body>
+</html>
