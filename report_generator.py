@@ -92,7 +92,7 @@ def generate_report(df, pitcher_name, innings_pitched):
 
     whiff_constants = {
         'Fastball': 0.1570507714710533618927,
-        'Sinker': 0.150227714710533618927,
+        'Sinker': 0.160227714710533618927,
         'TwoSeamFastball': 0.17714710533618927,
         'FourSeamFastball': 0.17714710533618927,
         'Curveball': 0.203832322178011536598206,
@@ -140,6 +140,7 @@ def generate_report(df, pitcher_name, innings_pitched):
         ax1 = fig.add_subplot(gs[0:2, 0:4])
         ax1.pie(pitch_type_counts, labels=pitch_type_counts.index, autopct='%1.1f%%', startangle=90)
         ax1.set_title('Pitch Types Distribution', fontsize=16)
+        ax1.set_position([0.175, 0.78, 0.35, 0.15])
 
         ax2 = fig.add_subplot(gs[0:2, 4:8])
         ax2.axis('off')
@@ -157,6 +158,7 @@ def generate_report(df, pitcher_name, innings_pitched):
         basic_stats_table.auto_set_font_size(False)
         basic_stats_table.set_fontsize(12)
         basic_stats_table.auto_set_column_width(col=list(range(2)))
+        ax2.set_position([0.61, 0.59, .35, 0.17])
 
         ax3 = fig.add_subplot(gs[2:4, 0:8])
         ax3.axis('off')
@@ -166,6 +168,9 @@ def generate_report(df, pitcher_name, innings_pitched):
         pitch_type_averages_table.auto_set_font_size(False)
         pitch_type_averages_table.set_fontsize(12)
         pitch_type_averages_table.auto_set_column_width(col=list(range(len(pitch_type_averages_1.columns))))
+        pitch_type_averages_table.scale(1.2, 2.2)
+        pitch_type_averages_table.set_fontsize(13)
+        ax3.set_position([0.42, 0.33, 0.35, 0.12])
 
         ax4 = fig.add_subplot(gs[4:6, 0:5])
         strike_zone = Rectangle((-0.83, 1.5), 1.66, 2.1, linewidth=1, edgecolor='k', facecolor='none')
@@ -179,6 +184,7 @@ def generate_report(df, pitcher_name, innings_pitched):
             ax4.scatter(filtered_data['PlateLocSide'], filtered_data['PlateLocHeight'], s=80, c=colors[idx], alpha=0.5, label=pitch_type)
         ax4.legend(title="Pitch Types", fontsize=10)
         ax4.set_title("Pitch Locations (pitcher's perspective)", fontsize=16)
+        ax4.set_position([0.12, 0.47, 0.5, 0.3])
 
         ax5 = fig.add_subplot(gs[4:6, 5:8])
         ax5.axis('off')
@@ -189,6 +195,9 @@ def generate_report(df, pitcher_name, innings_pitched):
         strike_percentages_table.auto_set_font_size(False)
         strike_percentages_table.set_fontsize(12)
         strike_percentages_table.auto_set_column_width(col=list(range(2)))
+        strike_percentages_table.scale(1.2, 1.8)
+        strike_percentages_table.set_fontsize(13)
+        ax5.set_position([0.72, 0.46, 0.35, 0.15])
 
         ax6 = fig.add_subplot(gs[6:8, 0:4])
         ax6.axis('off')
@@ -199,6 +208,9 @@ def generate_report(df, pitcher_name, innings_pitched):
         whiff_percentages_table.auto_set_font_size(False)
         whiff_percentages_table.set_fontsize(12)
         whiff_percentages_table.auto_set_column_width(col=list(range(2)))
+        whiff_percentages_table.scale(1.2, 1.8)
+        whiff_percentages_table.set_fontsize(13)
+        ax6.set_position([0.52, 0.46, 0.35, 0.15])
 
         ax7 = fig.add_subplot(gs[6:8, 4:8])
         ax7.axis('off')
@@ -208,12 +220,17 @@ def generate_report(df, pitcher_name, innings_pitched):
         stuff_metrics_table.auto_set_font_size(False)
         stuff_metrics_table.set_fontsize(12)
         stuff_metrics_table.auto_set_column_width(col=list(range(len(df_stuff.columns))))
+        stuff_metrics_table.scale(1.2, 1.6)
+        stuff_metrics_table.set_fontsize(13)
+        #update figure position
+        ax7.set_position([0.20, 0.36, 0.8, 0.15])
+        
 
-        ax_logo = fig.add_axes([0.7, 0.75, 0.2, 0.2])
+        ax_logo = fig.add_axes([0.61, 0.72, 0.28, 0.28])
         ax_logo.axis('off')
         ax_logo.imshow(logo_img)
 
-        plt.suptitle(f"{pitcher_name} Full Season Report", fontsize=24)
+        plt.suptitle(f"{pitcher_name} Live 04/24", fontsize=24)
         pdf.savefig(fig, bbox_inches='tight')
         pdf.close()
 
