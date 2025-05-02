@@ -1,4 +1,10 @@
+venv/
 models/
-*.pkl
 *.sav
+*.pkl
+*.dylib
 
+models/
+venv/
+*.sav
+*.pkl
