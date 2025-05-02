@@ -8,3 +8,7 @@ models/
 venv/
 *.sav
 *.pkl
+models/
+venv/
+*.sav
+*.dylib
