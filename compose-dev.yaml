@@ -1,0 +1,15 @@
+version: "3.8"
+
+services:
+  trackman-webapp:
+    build: .
+    container_name: trackman-webapp
+    ports:
+      - "5001:5000"  # Flask defaults to port 5000
+    volumes:
+      - .:/app       # Optional: allows live code reloading + persistent outputs/uploads
+      - ./outputs:/app/outputs
+    environment:
+      - FLASK_ENV=development  # Optional, gives you nicer errors
+    restart: unless-stopped
+

@@ -232,6 +232,6 @@ def generate_report(df, pitcher_name, innings_pitched):
 
         plt.suptitle(f"{pitcher_name} Live 04/24", fontsize=24)
         pdf.savefig(fig, bbox_inches='tight')
-        pdf.close()
+        #pdf.close()
 
     return output_path

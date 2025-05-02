@@ -1,0 +1,27 @@
+# Byte-compiled / cache files
+__pycache__/
+*.py[cod]
+*.pyo
+
+# Virtual environments
+.env/
+.venv/
+env/
+venv/
+
+# OS / Editor-specific
+.DS_Store
+*.swp
+*.swo
+
+# Git
+.git
+.gitignore
+
+# Output or generated files
+outputs/
+uploads/
+
+# Docker build artifacts
+*.log
+
