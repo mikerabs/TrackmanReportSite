@@ -1,16 +1,33 @@
 <!DOCTYPE html>
-<html>
-<head><title>Pitcher Report</title></head>
-<body>
-  <h2>Upload Pitcher CSV</h2>
-  <form action="/" method="post" enctype="multipart/form-data">
-    <label>Pitcher Name (Last, First):</label><br>
-    <input type="text" name="pitcher_name" required><br><br>
-    <label>Innings Pitched:</label><br>
-    <input type="text" name="innings_pitched" required><br><br>
-    <label>Upload CSV:</label><br>
-    <input type="file" name="csv_file" required><br><br>
-    <input type="submit" value="Generate Report">
-  </form>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Pitcher Report Generator</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+  <div class="container py-5">
+    <div class="card shadow-sm p-4">
+      <h2 class="mb-4 text-center"> Fordham Pitcher Report Generator</h2>
+      <form action="/" method="post" enctype="multipart/form-data">
+        <div class="mb-3">
+          <label class="form-label">Pitcher Name (Last, First):</label>
+          <input type="text" class="form-control" name="pitcher_name" required>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Innings Pitched:</label>
+          <input type="number" class="form-control" name="innings_pitched" step="0.1" required>
+        </div>
+        <div class="mb-3">
+          <label class="form-label">Upload CSV File:</label>
+          <input type="file" class="form-control" name="csv_file" accept=".csv" required>
+        </div>
+        <div class="text-center">
+          <button type="submit" class="btn btn-primary">Generate Report</button>
+        </div>
+      </form>
+    </div>
+  </div>
 </body>
 </html>
+
