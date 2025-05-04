@@ -1,6 +1,6 @@
 from flask import Flask, request, render_template, send_file
 import pandas as pd
-from report_generator import generate_report  # <- refactored function
+from report_generator_2 import generate_report  # <- refactored function
 import os
 
 app = Flask(__name__)
