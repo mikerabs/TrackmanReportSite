@@ -236,6 +236,8 @@ def generate_report(df, pitcher_name, innings_pitched):
         whiff_percentages_table.set_fontsize(13)
         ax6.set_position([0.52, 0.43, 0.35, 0.15])
 
+        '''
+        #This is the old Stuff+ table
         ax7 = fig.add_subplot(gs[6:8, 4:8])
         ax7.axis('off')
         stuff_metrics_table = ax7.table(cellText=df_stuff.round(1).values,
@@ -248,6 +250,39 @@ def generate_report(df, pitcher_name, innings_pitched):
         stuff_metrics_table.set_fontsize(13)
         #update figure position
         ax7.set_position([0.20, 0.36, 0.8, 0.15])
+        '''
+        # Clean horizontal Stuff+ scale visualization (streamlined)
+        ax7 = fig.add_subplot(gs[6:8, 4:8])
+        ax7.set_facecolor('none')  # Transparent background
+        ax7.set_frame_on(False)
+        ax7.set_yticks([])
+        ax7.set_xticks([])
+
+        mean = 100
+        std = 10
+        ax7.axhline(y=0, color='black', linewidth=2)
+
+        # Central tick for mean and its label
+        ax7.plot(mean, 0, marker='|', color='black', markersize=22, zorder=2)
+        ax7.text(mean, -0.2, "100", ha='center', va='top', fontsize=9, color='black')
+
+        # ±1σ to ±3σ ticks and their labels
+        for i in range(1, 4):
+            for offset in [-1, 1]:
+                val = mean + offset * i * std
+                ax7.plot(val, 0, marker='|', color='gray', markersize=12, zorder=1)
+                ax7.text(val, -0.2, f"{val}", ha='center', va='top', fontsize=8, color='gray')
+
+        # Colored Stuff+ markers and labels (just values, horizontally)
+        stuffplus_colors = dict(zip(df_stuff.columns, plt.cm.get_cmap('tab10')(range(len(df_stuff.columns)))))
+        for pitch, score in df_stuff.iloc[0].items():
+            ax7.plot(score, 0, marker='|', color=stuffplus_colors[pitch], markersize=26, linewidth=4, zorder=3)
+            ax7.text(score, 0.2, f"{score:.1f}", fontsize=9, ha='center', va='bottom', color=stuffplus_colors[pitch])
+
+        ax7.set_xlim(mean - 3*std - 5, mean + 3*std + 5)
+        ax7.set_ylim(-0.4, 0.4)
+        ax7.set_position([0.20, 0.41, 0.8, 0.05])  # Controls width & height
+
         ax8 = fig.add_subplot(gs[2:4, 0:3])
         ax8.set_facecolor(report_colors["table_bg"])
         ax8.set_title("Pitch Movement Plot", fontsize=16, color=report_colors["title_color"])
@@ -271,7 +306,7 @@ def generate_report(df, pitcher_name, innings_pitched):
 
         ax8.axhline(0, color='gray', linestyle='--', linewidth=0.5)
         ax8.axvline(0, color='gray', linestyle='--', linewidth=0.5)
-        ax8.legend(loc="lower left", fontsize=9, title="Pitch Type")
+        #ax8.legend(loc="lower left", fontsize=9, title="Pitch Type")
         ax8.set_xlim(-25, 25)
         ax8.set_ylim(-25, 25)
         ax8.set_position([0.63, 0.76, 0.30, 0.16])
