@@ -171,10 +171,13 @@ def generate_report(df, pitcher_name, innings_pitched):
         basic_stats_table.set_fontsize(12)
         basic_stats_table.auto_set_column_width(col=list(range(2)))
         ax2.set_title("Outing Summary", fontsize=16, color=report_colors["title_color"])
-        ax2.set_position([0.61, 0.54, .35, 0.17])
+        ax2.set_position([0.66, 0.54, .35, 0.17])
 
         ax3 = fig.add_subplot(gs[2:4, 0:8])
         ax3.axis('off')
+
+
+
         pitch_type_averages_table = ax3.table(cellText=pitch_type_averages_1.round(1).values,
                                               colLabels=pitch_type_averages_1.columns,
                                               cellLoc='center', loc='center')
@@ -183,7 +186,7 @@ def generate_report(df, pitcher_name, innings_pitched):
         pitch_type_averages_table.auto_set_column_width(col=list(range(len(pitch_type_averages_1.columns))))
         pitch_type_averages_table.scale(1.2, 2.2)
         pitch_type_averages_table.set_fontsize(13)
-        ax3.set_position([0.42, 0.33, 0.35, 0.12])
+        ax3.set_position([0.42, 0.25, 0.35, 0.12])
         
         unique_pitches = pitcher_data['TaggedPitchType'].unique()
         pitch_colors = dict(zip(unique_pitches, plt.cm.get_cmap('tab10')(range(len(unique_pitches)))))
@@ -193,6 +196,9 @@ def generate_report(df, pitcher_name, innings_pitched):
         ax4.add_patch(strike_zone)
         ax4.set_xlim(-2, 2)
         ax4.set_ylim(0, 4.5)
+        ax4.set_xlabel("Plate Side (in feet)", fontsize=10)
+        ax4.set_ylabel("Plate Height (in feet)", fontsize=10)
+
         ax4.set_aspect('equal')
         # Match pitch colors with ax8
         for pitch in unique_pitches:
@@ -210,6 +216,7 @@ def generate_report(df, pitcher_name, innings_pitched):
         ax4.set_title("Pitch Locations (pitcher's perspective)", fontsize=16)
         ax4.set_position([0.12, 0.47, 0.5, 0.3])
 
+
         ax5 = fig.add_subplot(gs[4:6, 5:8])
         ax5.axis('off')
         strike_percentages_data = [[pitch_type, round(strike_percentages[pitch_type], 2)] for pitch_type in strike_percentages.index]
@@ -221,8 +228,8 @@ def generate_report(df, pitcher_name, innings_pitched):
         strike_percentages_table.auto_set_column_width(col=list(range(2)))
         strike_percentages_table.scale(1.2, 1.8)
         strike_percentages_table.set_fontsize(13)
-        ax5.set_position([0.72, 0.43, 0.35, 0.15])
-
+        ax5.set_position([0.76, 0.43, 0.35, 0.15])
+        #0.72
         ax6 = fig.add_subplot(gs[6:8, 0:4])
         ax6.axis('off')
         whiff_percentages_data = [[pitch_type, round(whiff_percentages[pitch_type], 2)] for pitch_type in whiff_percentages.index]
@@ -234,7 +241,8 @@ def generate_report(df, pitcher_name, innings_pitched):
         whiff_percentages_table.auto_set_column_width(col=list(range(2)))
         whiff_percentages_table.scale(1.2, 1.8)
         whiff_percentages_table.set_fontsize(13)
-        ax6.set_position([0.52, 0.43, 0.35, 0.15])
+        #0.52
+        ax6.set_position([0.56, 0.43, 0.35, 0.15])
 
         '''
         #This is the old Stuff+ table
@@ -257,6 +265,8 @@ def generate_report(df, pitcher_name, innings_pitched):
         ax7.set_frame_on(False)
         ax7.set_yticks([])
         ax7.set_xticks([])
+        ax7.set_title("Stuff+ Benchmark (100 = NCAA Avg)", fontsize=13, color=report_colors["title_color"])
+
 
         mean = 100
         std = 10
@@ -281,7 +291,7 @@ def generate_report(df, pitcher_name, innings_pitched):
 
         ax7.set_xlim(mean - 3*std - 5, mean + 3*std + 5)
         ax7.set_ylim(-0.4, 0.4)
-        ax7.set_position([0.20, 0.41, 0.8, 0.05])  # Controls width & height
+        ax7.set_position([0.20, 0.36, 0.8, 0.05])  # Controls width & height
 
         ax8 = fig.add_subplot(gs[2:4, 0:3])
         ax8.set_facecolor(report_colors["table_bg"])
@@ -309,14 +319,14 @@ def generate_report(df, pitcher_name, innings_pitched):
         #ax8.legend(loc="lower left", fontsize=9, title="Pitch Type")
         ax8.set_xlim(-25, 25)
         ax8.set_ylim(-25, 25)
-        ax8.set_position([0.63, 0.76, 0.30, 0.16])
+        ax8.set_position([0.68, 0.76, 0.30, 0.16])
         
 
         #ax_logo = fig.add_axes([0.61, 0.72, 0.28, 0.28])
         #ax_logo.axis('off')
         #ax_logo.imshow(logo_img)
 
-        plt.suptitle(f"{pitcher_name} Live 04/24", fontsize=24)
+        plt.suptitle(f"{pitcher_name} Live 04/24", fontsize=30, x = 0.65, y= 0.98)
         pdf.savefig(fig, bbox_inches='tight')
         #pdf.close()
 
